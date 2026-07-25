@@ -26,6 +26,8 @@ public final class DoubleRetriever extends AbstractFixedLengthValueRetriever<Dou
     /**
      * Returns an instance of the {@code DoubleRetriever} class.
      *
+     * @return an instance of the {@code DoubleRetriever} class
+     *
      * @since 1.0.0
      */
     public static DoubleRetriever getInstance() {

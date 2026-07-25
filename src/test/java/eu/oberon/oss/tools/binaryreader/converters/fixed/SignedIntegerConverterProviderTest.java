@@ -13,11 +13,7 @@ import java.nio.ByteOrder;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SignedIntegerConverterProviderTest {
 
@@ -28,7 +24,7 @@ class SignedIntegerConverterProviderTest {
             AbstractConverterProvider.getConverterProvider(ValueTypeNames.SIGNED_INTEGER.name())
     );
     private final FixedToObjectConverter<Integer> toObject = provider.getToObjectConverter();
-    private final FixedToByteConverter<Integer> toBytes  = provider.getToByteConverter();
+    private final FixedToByteConverter<Integer> toBytes = provider.getToByteConverter();
 
     // ---------------------------------------------------------------------
     // Provider metadata
@@ -180,7 +176,7 @@ class SignedIntegerConverterProviderTest {
         void defaultsToNativeOrder() {
             byte[] bytes = {0x12, 0x34, 0x56, 0x78};
             int viaDefault = toObject.convert(bytes);
-            int viaNative  = toObject.convert(bytes, ByteOrder.nativeOrder());
+            int viaNative = toObject.convert(bytes, ByteOrder.nativeOrder());
             assertEquals(viaNative, viaDefault);
         }
     }

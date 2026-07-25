@@ -1,4 +1,3 @@
-
 package eu.oberon.oss.tools.binaryreader.converters.fixed;
 
 import eu.oberon.oss.tools.binaryreader.converters.AbstractConverterProvider;
@@ -14,11 +13,7 @@ import java.nio.ByteOrder;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SignedLongConverterProviderTest {
 
@@ -30,7 +25,7 @@ class SignedLongConverterProviderTest {
             AbstractConverterProvider.getConverterProvider(ValueTypeNames.SIGNED_LONG.name())
     );
     private final FixedToObjectConverter<Long> toObject = provider.getToObjectConverter();
-    private final FixedToByteConverter<Long> toBytes  = provider.getToByteConverter();
+    private final FixedToByteConverter<Long> toBytes = provider.getToByteConverter();
 
     // ---------------------------------------------------------------------
     // Provider metadata
@@ -199,7 +194,7 @@ class SignedLongConverterProviderTest {
                     (byte) 0x9A, (byte) 0xBC, (byte) 0xDE, (byte) 0xF0
             };
             long viaDefault = toObject.convert(bytes);
-            long viaNative  = toObject.convert(bytes, ByteOrder.nativeOrder());
+            long viaNative = toObject.convert(bytes, ByteOrder.nativeOrder());
             assertEquals(viaNative, viaDefault);
         }
     }

@@ -7,9 +7,24 @@ import eu.oberon.oss.tools.binaryreader.converters.text.TextToObjectConverter;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 
+/**
+ * Base class for text value retrievers.
+ *
+ * @param <T> The type of object to retrieve.
+ *
+ * @author TigerLilly64
+ * @since 1.0.0
+ */
 public abstract class AbstractTextValueRetriever<T> implements TextValueRetriever<T> {
     private final TextToObjectConverter<T> converter;
 
+    /**
+     * Constructs a new instance of AbstractTextValueRetriever.
+     *
+     * @param converter The text-to-object converter to use.
+     *
+     * @since 1.0.0
+     */
     protected AbstractTextValueRetriever(TextToObjectConverter<T> converter) {
         this.converter = converter;
     }
@@ -47,6 +62,6 @@ public abstract class AbstractTextValueRetriever<T> implements TextValueRetrieve
 
     @Override
     public T getValue(BinaryDataReader reader, int length, ByteOrder byteOrder, Charset charset) {
-        return converter.convert(reader.readBytes(length),charset,byteOrder);
+        return converter.convert(reader.readBytes(length), charset, byteOrder);
     }
 }

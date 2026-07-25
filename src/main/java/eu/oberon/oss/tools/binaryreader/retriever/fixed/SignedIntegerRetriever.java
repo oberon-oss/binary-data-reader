@@ -25,6 +25,8 @@ public final class SignedIntegerRetriever extends AbstractFixedLengthValueRetrie
     /**
      * Returns an instance of the {@code SignedIntegerRetriever} class.
      *
+     * @return an instance of the {@code SignedIntegerRetriever} class
+     *
      * @since 1.0.0
      */
     public static SignedIntegerRetriever getInstance() {

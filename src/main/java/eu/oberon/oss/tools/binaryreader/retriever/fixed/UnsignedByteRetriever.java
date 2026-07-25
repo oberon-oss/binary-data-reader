@@ -25,6 +25,8 @@ public final class UnsignedByteRetriever extends AbstractFixedLengthValueRetriev
     /**
      * Returns an instance of the {@code UnsignedByteRetriever} class.
      *
+     * @return an instance of the {@code UnsignedByteRetriever} class
+     *
      * @since 1.0.0
      */
     public static UnsignedByteRetriever getInstance() {

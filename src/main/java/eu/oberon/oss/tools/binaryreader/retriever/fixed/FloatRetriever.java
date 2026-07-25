@@ -25,6 +25,8 @@ public final class FloatRetriever extends AbstractFixedLengthValueRetriever<Floa
     /**
      * Returns an instance of the {@code FloatRetriever} class.
      *
+     * @return an instance of the {@code FloatRetriever} class
+     *
      * @since 1.0.0
      */
     public static FloatRetriever getInstance() {

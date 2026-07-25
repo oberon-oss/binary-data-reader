@@ -6,7 +6,6 @@ import eu.oberon.oss.tools.binaryreader.BinaryDataViewerImpl;
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteOrder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

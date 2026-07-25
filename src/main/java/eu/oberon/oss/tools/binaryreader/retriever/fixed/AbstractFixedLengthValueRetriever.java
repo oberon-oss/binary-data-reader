@@ -6,10 +6,26 @@ import eu.oberon.oss.tools.binaryreader.converters.fixed.FixedToObjectConverter;
 
 import java.nio.ByteOrder;
 
+/**
+ * Parent class for fixed-length value retrievers.
+ *
+ * @param <T> The type of object to retrieve.
+ *
+ * @author TigerLilly64
+ * @since 1.0.0
+ */
 public abstract class AbstractFixedLengthValueRetriever<T> implements FixedLengthValueRetriever<T> {
     private final FixedToObjectConverter<T> converter;
     private final int expectedByteArraySize;
 
+    /**
+     * Constructs a new AbstractFixedLengthValueRetriever with the specified converter and expected byte array size.
+     *
+     * @param converter             The converter to use for converting byte arrays to objects.
+     * @param expectedByteArraySize The expected size of the byte array to retrieve.
+     *
+     * @since 1.0.0
+     */
     protected AbstractFixedLengthValueRetriever(FixedToObjectConverter<T> converter, int expectedByteArraySize) {
         this.converter = converter;
         this.expectedByteArraySize = expectedByteArraySize;

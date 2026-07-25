@@ -26,6 +26,8 @@ public final class UnsignedLongRetriever extends AbstractFixedLengthValueRetriev
     /**
      * Returns an instance of the {@code UnsignedLongRetriever} class.
      *
+     * @return an instance of the {@code UnsignedLongRetriever} class
+     *
      * @since 1.0.0
      */
     public static UnsignedLongRetriever getInstance() {

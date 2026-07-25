@@ -14,11 +14,7 @@ import java.nio.ByteOrder;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class UnsignedIntegerConverterProviderTest {
 
@@ -29,7 +25,7 @@ class UnsignedIntegerConverterProviderTest {
             AbstractConverterProvider.getConverterProvider(ValueTypeNames.UNSIGNED_INTEGER.name())
     );
     private final FixedToObjectConverter<Long> toObject = provider.getToObjectConverter();
-    private final FixedToByteConverter<Long> toBytes  = provider.getToByteConverter();
+    private final FixedToByteConverter<Long> toBytes = provider.getToByteConverter();
 
     // ---------------------------------------------------------------------
     // Provider metadata
@@ -168,7 +164,7 @@ class UnsignedIntegerConverterProviderTest {
         void defaultsToNativeOrder() {
             byte[] bytes = {0x12, 0x34, 0x56, 0x78};
             long viaDefault = toObject.convert(bytes);
-            long viaNative  = toObject.convert(bytes, ByteOrder.nativeOrder());
+            long viaNative = toObject.convert(bytes, ByteOrder.nativeOrder());
             assertEquals(viaNative, viaDefault);
         }
     }

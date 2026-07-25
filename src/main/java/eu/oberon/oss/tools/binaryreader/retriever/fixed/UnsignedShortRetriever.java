@@ -25,6 +25,8 @@ public final class UnsignedShortRetriever extends AbstractFixedLengthValueRetrie
     /**
      * Returns an instance of the {@code UnsignedShortRetriever} class.
      *
+     * @return an instance of the {@code UnsignedShortRetriever} class
+     *
      * @since 1.0.0
      */
     public static UnsignedShortRetriever getInstance() {

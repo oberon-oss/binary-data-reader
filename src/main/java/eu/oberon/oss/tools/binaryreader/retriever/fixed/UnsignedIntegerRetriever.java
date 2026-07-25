@@ -25,6 +25,8 @@ public final class UnsignedIntegerRetriever extends AbstractFixedLengthValueRetr
     /**
      * Returns an instance of the {@code UnsignedIntegerRetriever} class.
      *
+     * @return an instance of the {@code UnsignedIntegerRetriever} class
+     *
      * @since 1.0.0
      */
     public static UnsignedIntegerRetriever getInstance() {

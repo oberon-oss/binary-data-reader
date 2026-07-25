@@ -25,6 +25,8 @@ public final class SignedLongRetriever extends AbstractFixedLengthValueRetriever
     /**
      * Returns an instance of the {@code SignedLongRetriever} class.
      *
+     * @return an instance of the {@code SignedLongRetriever} class
+     *
      * @since 1.0.0
      */
     public static SignedLongRetriever getInstance() {

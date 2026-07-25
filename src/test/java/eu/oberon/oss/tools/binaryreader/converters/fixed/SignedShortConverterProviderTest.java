@@ -13,11 +13,7 @@ import java.nio.ByteOrder;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SignedShortConverterProviderTest {
 
@@ -28,7 +24,7 @@ class SignedShortConverterProviderTest {
             AbstractConverterProvider.getConverterProvider(ValueTypeNames.SIGNED_SHORT.name())
     );
     private final FixedToObjectConverter<Short> toObject = provider.getToObjectConverter();
-    private final FixedToByteConverter<Short> toBytes  = provider.getToByteConverter();
+    private final FixedToByteConverter<Short> toBytes = provider.getToByteConverter();
 
     // ---------------------------------------------------------------------
     // Provider metadata
@@ -171,7 +167,7 @@ class SignedShortConverterProviderTest {
         void defaultsToNativeOrder() {
             byte[] bytes = {0x12, 0x34};
             short viaDefault = toObject.convert(bytes);
-            short viaNative  = toObject.convert(bytes, ByteOrder.nativeOrder());
+            short viaNative = toObject.convert(bytes, ByteOrder.nativeOrder());
             assertEquals(viaNative, viaDefault);
         }
     }

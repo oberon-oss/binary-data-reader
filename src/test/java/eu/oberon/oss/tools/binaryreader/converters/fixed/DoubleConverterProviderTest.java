@@ -1,4 +1,3 @@
-
 package eu.oberon.oss.tools.binaryreader.converters.fixed;
 
 import eu.oberon.oss.tools.binaryreader.converters.AbstractConverterProvider;
