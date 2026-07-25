@@ -22,8 +22,8 @@ jobs:
             sonar-enabled: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
             sonar-maven-profile: coverage
             sonar-quality-gate-blocking: false
-            snapshot-maven-profiles: oberon-oss_binary-data-reader
-            sonar-project-key: oberon-oss_picocli-option-help
+            snapshot-maven-profiles: generate-javadoc-and-source
+            sonar-project-key: oberon-oss_binary-data-reader
         secrets:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
