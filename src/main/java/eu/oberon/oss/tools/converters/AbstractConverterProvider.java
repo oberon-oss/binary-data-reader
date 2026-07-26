@@ -1,5 +1,6 @@
 package eu.oberon.oss.tools.converters;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

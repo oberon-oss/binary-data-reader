@@ -1,8 +1,10 @@
 package eu.oberon.oss.tools.retriever.varlen;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.binaryreader.BinaryDataReader;
 import eu.oberon.oss.tools.binaryreader.BinaryDataViewer;
 import eu.oberon.oss.tools.converters.varlen.VarLenToObjectConverter;
+import eu.oberon.oss.tools.retriever.AbstractValueRetriever;
 
 import java.nio.ByteOrder;
 
@@ -14,18 +16,19 @@ import java.nio.ByteOrder;
  * @author TigerLilly64
  * @since 1.0.0
  */
-public abstract class AbstractVarLenValueRetriever<T> implements VarLenValueRetriever<T> {
-
+public abstract class AbstractVarLenValueRetriever<T> extends AbstractValueRetriever implements VarLenValueRetriever<T> {
     private final VarLenToObjectConverter<T> converter;
 
     /**
      * Constructs a new instance of {@code AbstractVarLenValueRetriever} with the specified converter.
      *
-     * @param converter The converter to use for converting variable-length values to objects of type {@code <T>}.
+     * @param converter      The converter to use for converting variable-length values to objects of type {@code <T>}.
+     * @param valueTypeNames The value type name of the type of object to retrieve.
      *
      * @since 1.0.0
      */
-    protected AbstractVarLenValueRetriever(VarLenToObjectConverter<T> converter) {
+    protected AbstractVarLenValueRetriever(ValueTypeNames valueTypeNames, VarLenToObjectConverter<T> converter) {
+        super(valueTypeNames);
         this.converter = converter;
     }
 

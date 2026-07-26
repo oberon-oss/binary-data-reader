@@ -9,22 +9,14 @@ import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CharacterArrayValueRetrieverTest {
-
-    @Test
-    public void testGetInstance() {
-        CharacterArrayValueRetriever instance1 = CharacterArrayValueRetriever.getInstance();
-        CharacterArrayValueRetriever instance2 = CharacterArrayValueRetriever.getInstance();
-        assertEquals(instance1, instance2);
-    }
 
     @Test
     public void testGetValueFromViewer() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        CharacterArrayValueRetriever retriever = CharacterArrayValueRetriever.getInstance();
+        CharacterArrayValueRetriever retriever = new CharacterArrayValueRetriever();
 
         Character[] expected = new Character[]{'H', 'e', 'l', 'l', 'o'};
         assertArrayEquals(expected, retriever.getValue(viewer, 0, 5));
@@ -35,7 +27,7 @@ public class CharacterArrayValueRetrieverTest {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
-        CharacterArrayValueRetriever retriever = CharacterArrayValueRetriever.getInstance();
+        CharacterArrayValueRetriever retriever = new CharacterArrayValueRetriever();
 
         Character[] expected = new Character[]{'H', 'e', 'l', 'l', 'o'};
         assertArrayEquals(expected, retriever.getValue(reader, 5));

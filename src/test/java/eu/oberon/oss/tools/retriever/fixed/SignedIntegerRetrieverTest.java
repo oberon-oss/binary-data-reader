@@ -16,7 +16,7 @@ class SignedIntegerRetrieverTest {
     void testGetValueFromViewerBigEndian() {
         byte[] data = {0x00, 0x00, 0x00, 0x01}; // 1 in Big Endian
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        SignedIntegerRetriever retriever = SignedIntegerRetriever.getInstance();
+        SignedIntegerRetriever retriever = new SignedIntegerRetriever();
 
         assertEquals(1, retriever.getValue(viewer, 0, ByteOrder.BIG_ENDIAN));
     }
@@ -25,7 +25,7 @@ class SignedIntegerRetrieverTest {
     void testGetValueFromViewerLittleEndian() {
         byte[] data = {0x01, 0x00, 0x00, 0x00}; // 1 in Little Endian
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        SignedIntegerRetriever retriever = SignedIntegerRetriever.getInstance();
+        SignedIntegerRetriever retriever = new SignedIntegerRetriever();
 
         assertEquals(1, retriever.getValue(viewer, 0, ByteOrder.LITTLE_ENDIAN));
     }
@@ -34,7 +34,7 @@ class SignedIntegerRetrieverTest {
     void testGetValueFromReaderBigEndian() {
         byte[] data = {0x00, 0x00, 0x00, 0x01}; // 1 in Big Endian
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        SignedIntegerRetriever retriever = SignedIntegerRetriever.getInstance();
+        SignedIntegerRetriever retriever = new SignedIntegerRetriever();
 
         assertEquals(1, retriever.getValue(reader, ByteOrder.BIG_ENDIAN));
     }
@@ -43,7 +43,7 @@ class SignedIntegerRetrieverTest {
     void testGetValueFromReaderLittleEndian() {
         byte[] data = {0x01, 0x00, 0x00, 0x00}; // 1 in Little Endian
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        SignedIntegerRetriever retriever = SignedIntegerRetriever.getInstance();
+        SignedIntegerRetriever retriever = new SignedIntegerRetriever();
 
         assertEquals(1, retriever.getValue(reader, ByteOrder.LITTLE_ENDIAN));
     }
@@ -52,9 +52,9 @@ class SignedIntegerRetrieverTest {
     void testGetValueFromViewerNativeOrder() {
         byte[] data = {0x01, 0x00, 0x00, 0x00}; // 1
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        SignedIntegerRetriever retriever = SignedIntegerRetriever.getInstance();
+        SignedIntegerRetriever retriever = new SignedIntegerRetriever();
 
-        // We assume native order here for simplicity of test, if it fails we might need to adjust
+        // We assume native order here for simplicity of the test, if it fails, we might need to adjust.
         // But nativeOrder() is what is called by the method without ByteOrder parameter
         int expected = ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN ? 1 : 0x01000000;
         assertEquals(expected, retriever.getValue(viewer, 0));
@@ -64,7 +64,7 @@ class SignedIntegerRetrieverTest {
     void testGetValueFromReaderNativeOrder() {
         byte[] data = {0x01, 0x00, 0x00, 0x00}; // 1
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        SignedIntegerRetriever retriever = SignedIntegerRetriever.getInstance();
+        SignedIntegerRetriever retriever = new SignedIntegerRetriever();
 
         int expected = ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN ? 1 : 0x01000000;
         assertEquals(expected, retriever.getValue(reader));

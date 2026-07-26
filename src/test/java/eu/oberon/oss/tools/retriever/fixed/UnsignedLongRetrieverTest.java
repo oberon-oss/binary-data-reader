@@ -17,7 +17,7 @@ class UnsignedLongRetrieverTest {
     void testGetValueFromViewerBigEndian() {
         byte[] data = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01}; // 1 in Big Endian
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        UnsignedLongRetriever retriever = UnsignedLongRetriever.getInstance();
+        UnsignedLongRetriever retriever = new UnsignedLongRetriever();
 
         assertEquals(BigInteger.ONE, retriever.getValue(viewer, 0, ByteOrder.BIG_ENDIAN));
     }
@@ -26,7 +26,7 @@ class UnsignedLongRetrieverTest {
     void testGetValueFromViewerLittleEndian() {
         byte[] data = {0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // 1 in Little Endian
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        UnsignedLongRetriever retriever = UnsignedLongRetriever.getInstance();
+        UnsignedLongRetriever retriever = new UnsignedLongRetriever();
 
         assertEquals(BigInteger.ONE, retriever.getValue(viewer, 0, ByteOrder.LITTLE_ENDIAN));
     }
@@ -35,7 +35,7 @@ class UnsignedLongRetrieverTest {
     void testGetValueFromReaderBigEndian() {
         byte[] data = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01}; // 1 in Big Endian
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        UnsignedLongRetriever retriever = UnsignedLongRetriever.getInstance();
+        UnsignedLongRetriever retriever = new UnsignedLongRetriever();
 
         assertEquals(BigInteger.ONE, retriever.getValue(reader, ByteOrder.BIG_ENDIAN));
     }
@@ -44,7 +44,7 @@ class UnsignedLongRetrieverTest {
     void testGetValueFromReaderLittleEndian() {
         byte[] data = {0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // 1 in Little Endian
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        UnsignedLongRetriever retriever = UnsignedLongRetriever.getInstance();
+        UnsignedLongRetriever retriever = new UnsignedLongRetriever();
 
         assertEquals(BigInteger.ONE, retriever.getValue(reader, ByteOrder.LITTLE_ENDIAN));
     }

@@ -1,6 +1,6 @@
 package eu.oberon.oss.tools.converters.fixed;
 
-import eu.oberon.oss.tools.converters.ValueTypeNames;
+import eu.oberon.oss.tools.ValueTypeNames;
 
 import java.nio.ByteOrder;
 import java.util.Objects;
@@ -33,13 +33,12 @@ public class BooleanConverterProvider extends AbstractFixedConverterProvider<Boo
 
             /**
              * {@inheritDoc}
-             * This method will throw an UnsupportedOperationException as byte order is not supported for boolean conversion.
-             * @throws UnsupportedOperationException ByteOrder not supported for boolean conversion
+             * This implementation ignores the byte order parameter as boolean conversion does not support it.
              * @since 1.0.0
              */
             @Override
             public Boolean convert(byte[] bytes, ByteOrder byteOrder) {
-                throw new UnsupportedOperationException("Byte order not supported for boolean conversion");
+                return convert(bytes);
             }
         };
 
@@ -52,14 +51,14 @@ public class BooleanConverterProvider extends AbstractFixedConverterProvider<Boo
             }
 
             /**
-             * {@inheritDoc} This method will throw an UnsupportedOperationException as byte order is not supported for boolean conversion.
+             * {@inheritDoc}
+             * This implementation ignores the byte order parameter as boolean conversion does not support it.
              *
-             * @throws UnsupportedOperationException ByteOrder not supported for boolean conversion
              * @since 1.0.0
              */
             @Override
             public byte[] convert(Boolean object, ByteOrder byteOrder) {
-                throw new UnsupportedOperationException("Byte order not supported for boolean conversion");
+                return convert(object);
             }
         };
     }

@@ -1,5 +1,6 @@
 package eu.oberon.oss.tools.converters;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.converters.fixed.BooleanConverterProvider;
 import org.junit.jupiter.api.Test;
 

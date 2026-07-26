@@ -1,6 +1,6 @@
 package eu.oberon.oss.tools.converters.varlen.text;
 
-import eu.oberon.oss.tools.converters.ValueTypeNames;
+import eu.oberon.oss.tools.ValueTypeNames;
 
 /**
  * Provides conversion between {@link Character[]} and {@link String} for encoding and decoding.

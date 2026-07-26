@@ -1,0 +1,13 @@
+eu.oberon.oss.tools.retriever.fixed.BooleanRetriever
+eu.oberon.oss.tools.retriever.fixed.DoubleRetriever
+eu.oberon.oss.tools.retriever.fixed.FloatRetriever
+eu.oberon.oss.tools.retriever.fixed.SignedIntegerRetriever
+eu.oberon.oss.tools.retriever.fixed.SignedLongRetriever
+eu.oberon.oss.tools.retriever.fixed.SignedShortRetriever
+eu.oberon.oss.tools.retriever.fixed.UnsignedByteRetriever
+eu.oberon.oss.tools.retriever.fixed.UnsignedIntegerRetriever
+eu.oberon.oss.tools.retriever.fixed.UnsignedLongRetriever
+eu.oberon.oss.tools.retriever.fixed.UnsignedShortRetriever
+eu.oberon.oss.tools.retriever.varlen.text.CharacterValueRetriever
+eu.oberon.oss.tools.retriever.varlen.text.CharacterArrayValueRetriever
+eu.oberon.oss.tools.retriever.varlen.text.StringValueRetriever

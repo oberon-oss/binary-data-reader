@@ -1,4 +1,4 @@
-package eu.oberon.oss.tools.converters;
+package eu.oberon.oss.tools;
 
 /**
  * Enumerates the supported value types for binary data conversion, for which this library provides converters.

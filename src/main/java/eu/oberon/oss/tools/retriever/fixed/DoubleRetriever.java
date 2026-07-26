@@ -5,7 +5,7 @@ import eu.oberon.oss.tools.converters.fixed.DoubleConverterProvider;
 
 import java.util.Objects;
 
-import static eu.oberon.oss.tools.converters.ValueTypeNames.DOUBLE;
+import static eu.oberon.oss.tools.ValueTypeNames.DOUBLE;
 
 
 /**
@@ -16,21 +16,16 @@ import static eu.oberon.oss.tools.converters.ValueTypeNames.DOUBLE;
  */
 public final class DoubleRetriever extends AbstractFixedLengthValueRetriever<Double> {
 
-    private DoubleRetriever() {
+    /**
+     * Constructs an instance of {@code DoubleRetriever}.
+     *
+     * @since 1.0.0
+     */
+    public DoubleRetriever() {
         DoubleConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(DOUBLE.name()));
-        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize());
+        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize(), DOUBLE);
     }
 
     private static final DoubleRetriever INSTANCE = new DoubleRetriever();
 
-    /**
-     * Returns an instance of the {@code DoubleRetriever} class.
-     *
-     * @return an instance of the {@code DoubleRetriever} class
-     *
-     * @since 1.0.0
-     */
-    public static DoubleRetriever getInstance() {
-        return INSTANCE;
-    }
 }

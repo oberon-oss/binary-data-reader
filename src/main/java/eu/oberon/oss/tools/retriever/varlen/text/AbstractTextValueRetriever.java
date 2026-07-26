@@ -1,5 +1,6 @@
 package eu.oberon.oss.tools.retriever.varlen.text;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.binaryreader.BinaryDataReader;
 import eu.oberon.oss.tools.binaryreader.BinaryDataViewer;
 import eu.oberon.oss.tools.converters.varlen.text.TextToObjectConverter;
@@ -21,12 +22,13 @@ public abstract class AbstractTextValueRetriever<T> extends AbstractVarLenValueR
     /**
      * Constructs a new instance of AbstractTextValueRetriever.
      *
-     * @param converter The text-to-object converter to use.
+     * @param converter      The text-to-object converter to use.
+     * @param valueTypeNames The value type names.
      *
      * @since 1.0.0
      */
-    protected AbstractTextValueRetriever(TextToObjectConverter<T> converter) {
-        super(converter);
+    protected AbstractTextValueRetriever(TextToObjectConverter<T> converter, ValueTypeNames valueTypeNames) {
+        super(valueTypeNames, converter);
     }
 
     @Override

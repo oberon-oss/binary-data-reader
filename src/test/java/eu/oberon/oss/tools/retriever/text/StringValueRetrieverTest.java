@@ -12,19 +12,11 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StringValueRetrieverTest {
-
-    @Test
-    public void testGetInstance() {
-        StringValueRetriever instance1 = StringValueRetriever.getInstance();
-        StringValueRetriever instance2 = StringValueRetriever.getInstance();
-        assertEquals(instance1, instance2);
-    }
-
     @Test
     public void testGetValueFromViewer() {
         byte[] data = "Hello World".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         assertEquals("Hello", retriever.getValue(viewer, 0, 5));
         assertEquals("World", retriever.getValue(viewer, 6, 5));
@@ -34,7 +26,7 @@ public class StringValueRetrieverTest {
     public void testGetValueFromViewerWithCharset() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_16BE);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         assertEquals("Hello", retriever.getValue(viewer, 0, data.length, StandardCharsets.UTF_16BE));
     }
@@ -44,7 +36,7 @@ public class StringValueRetrieverTest {
         // UTF-16LE bytes for "Hello" without BOM
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_16LE);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         // If we use UTF-16 and LITTLE_ENDIAN, AbstractTextConverterProvider should handle it
         assertEquals("Hello", retriever.getValue(viewer, 0, data.length, ByteOrder.LITTLE_ENDIAN, StandardCharsets.UTF_16));
@@ -54,7 +46,7 @@ public class StringValueRetrieverTest {
     public void testGetValueFromViewerWithByteOrder() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         assertEquals("Hello", retriever.getValue(viewer, 0, 5, ByteOrder.BIG_ENDIAN));
     }
@@ -64,7 +56,7 @@ public class StringValueRetrieverTest {
         byte[] data = "Hello World".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         assertEquals("Hello", retriever.getValue(reader, 5));
         reader.readByte(); // skip space
@@ -76,7 +68,7 @@ public class StringValueRetrieverTest {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_16LE);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         assertEquals("Hello", retriever.getValue(reader, data.length, StandardCharsets.UTF_16LE));
     }
@@ -86,7 +78,7 @@ public class StringValueRetrieverTest {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
-        StringValueRetriever retriever = StringValueRetriever.getInstance();
+        StringValueRetriever retriever = new StringValueRetriever();
 
         assertEquals("Hello", retriever.getValue(reader, 5, ByteOrder.BIG_ENDIAN));
     }

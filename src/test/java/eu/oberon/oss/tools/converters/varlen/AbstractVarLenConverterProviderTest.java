@@ -1,6 +1,6 @@
 package eu.oberon.oss.tools.converters.varlen;
 
-import eu.oberon.oss.tools.converters.ValueTypeNames;
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.converters.varlen.text.AbstractTextConverterProvider;
 import eu.oberon.oss.tools.converters.varlen.text.TextToByteConverter;
 import eu.oberon.oss.tools.converters.varlen.text.TextToObjectConverter;

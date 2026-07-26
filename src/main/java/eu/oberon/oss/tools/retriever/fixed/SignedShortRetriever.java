@@ -5,7 +5,7 @@ import eu.oberon.oss.tools.converters.fixed.SignedShortConverterProvider;
 
 import java.util.Objects;
 
-import static eu.oberon.oss.tools.converters.ValueTypeNames.SIGNED_SHORT;
+import static eu.oberon.oss.tools.ValueTypeNames.SIGNED_SHORT;
 
 /**
  * Retrieves a signed short value from a binary data reader or viewer.
@@ -15,21 +15,13 @@ import static eu.oberon.oss.tools.converters.ValueTypeNames.SIGNED_SHORT;
  */
 public final class SignedShortRetriever extends AbstractFixedLengthValueRetriever<Short> {
 
-    private SignedShortRetriever() {
-        SignedShortConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(SIGNED_SHORT.name()));
-        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize());
-    }
-
-    private static final SignedShortRetriever INSTANCE = new SignedShortRetriever();
-
     /**
-     * Returns an instance of the {@code SignedShortRetriever} class.
-     *
-     * @return an instance of the {@code SignedShortRetriever} class
+     * Constructs an instance of {@code SignedShortRetriever}.
      *
      * @since 1.0.0
      */
-    public static SignedShortRetriever getInstance() {
-        return INSTANCE;
+    public SignedShortRetriever() {
+        SignedShortConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(SIGNED_SHORT.name()));
+        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize(), SIGNED_SHORT);
     }
 }

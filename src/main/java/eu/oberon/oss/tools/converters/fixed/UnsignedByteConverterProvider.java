@@ -1,6 +1,6 @@
 package eu.oberon.oss.tools.converters.fixed;
 
-import eu.oberon.oss.tools.converters.ValueTypeNames;
+import eu.oberon.oss.tools.ValueTypeNames;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
 package eu.oberon.oss.tools.converters.varlen;
 
-import eu.oberon.oss.tools.converters.ValueTypeNames;
+import eu.oberon.oss.tools.ValueTypeNames;
 
 /**
  * Abstract base class for providing converters that handle variable-length binary data conversions for a specified target type.

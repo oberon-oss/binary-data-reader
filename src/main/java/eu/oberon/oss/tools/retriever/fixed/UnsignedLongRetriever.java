@@ -6,7 +6,7 @@ import eu.oberon.oss.tools.converters.fixed.UnsignedLongConverterProvider;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import static eu.oberon.oss.tools.converters.ValueTypeNames.UNSIGNED_LONG;
+import static eu.oberon.oss.tools.ValueTypeNames.UNSIGNED_LONG;
 
 /**
  * Retrieves an unsigned long value from a binary data reader or viewer.
@@ -16,21 +16,13 @@ import static eu.oberon.oss.tools.converters.ValueTypeNames.UNSIGNED_LONG;
  */
 public final class UnsignedLongRetriever extends AbstractFixedLengthValueRetriever<BigInteger> {
 
-    private UnsignedLongRetriever() {
-        UnsignedLongConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(UNSIGNED_LONG.name()));
-        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize());
-    }
-
-    private static final UnsignedLongRetriever INSTANCE = new UnsignedLongRetriever();
-
     /**
-     * Returns an instance of the {@code UnsignedLongRetriever} class.
-     *
-     * @return an instance of the {@code UnsignedLongRetriever} class
+     * Constructs an instance of {@code UnsignedLongRetriever}.
      *
      * @since 1.0.0
      */
-    public static UnsignedLongRetriever getInstance() {
-        return INSTANCE;
+    public UnsignedLongRetriever() {
+        UnsignedLongConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(UNSIGNED_LONG.name()));
+        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize(), UNSIGNED_LONG);
     }
 }

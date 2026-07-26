@@ -22,7 +22,7 @@ class FloatRetrieverTest {
         byte[] data = provider.getToByteConverter().convert(value, ByteOrder.BIG_ENDIAN);
 
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        FloatRetriever retriever = FloatRetriever.getInstance();
+        FloatRetriever retriever = new FloatRetriever();
 
         assertEquals(value, retriever.getValue(viewer, 0, ByteOrder.BIG_ENDIAN));
     }
@@ -34,7 +34,7 @@ class FloatRetrieverTest {
         byte[] data = provider.getToByteConverter().convert(value, ByteOrder.LITTLE_ENDIAN);
 
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        FloatRetriever retriever = FloatRetriever.getInstance();
+        FloatRetriever retriever = new FloatRetriever();
 
         assertEquals(value, retriever.getValue(viewer, 0, ByteOrder.LITTLE_ENDIAN));
     }
@@ -46,7 +46,7 @@ class FloatRetrieverTest {
         byte[] data = provider.getToByteConverter().convert(value, ByteOrder.BIG_ENDIAN);
 
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        FloatRetriever retriever = FloatRetriever.getInstance();
+        FloatRetriever retriever = new FloatRetriever();
 
         assertEquals(value, retriever.getValue(reader, ByteOrder.BIG_ENDIAN));
     }
@@ -58,7 +58,7 @@ class FloatRetrieverTest {
         byte[] data = provider.getToByteConverter().convert(value, ByteOrder.LITTLE_ENDIAN);
 
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        FloatRetriever retriever = FloatRetriever.getInstance();
+        FloatRetriever retriever = new FloatRetriever();
 
         assertEquals(value, retriever.getValue(reader, ByteOrder.LITTLE_ENDIAN));
     }

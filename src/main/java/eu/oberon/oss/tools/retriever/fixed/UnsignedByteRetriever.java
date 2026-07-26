@@ -5,7 +5,7 @@ import eu.oberon.oss.tools.converters.fixed.UnsignedByteConverterProvider;
 
 import java.util.Objects;
 
-import static eu.oberon.oss.tools.converters.ValueTypeNames.UNSIGNED_BYTE;
+import static eu.oberon.oss.tools.ValueTypeNames.UNSIGNED_BYTE;
 
 /**
  * Retrieves an unsigned byte value from a binary data reader or viewer.
@@ -15,21 +15,13 @@ import static eu.oberon.oss.tools.converters.ValueTypeNames.UNSIGNED_BYTE;
  */
 public final class UnsignedByteRetriever extends AbstractFixedLengthValueRetriever<Integer> {
 
-    private UnsignedByteRetriever() {
-        UnsignedByteConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(UNSIGNED_BYTE.name()));
-        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize());
-    }
-
-    private static final UnsignedByteRetriever INSTANCE = new UnsignedByteRetriever();
-
     /**
-     * Returns an instance of the {@code UnsignedByteRetriever} class.
-     *
-     * @return an instance of the {@code UnsignedByteRetriever} class
+     * Constructs an instance of {@code UnsignedByteRetriever}.
      *
      * @since 1.0.0
      */
-    public static UnsignedByteRetriever getInstance() {
-        return INSTANCE;
+    public UnsignedByteRetriever() {
+        UnsignedByteConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(UNSIGNED_BYTE.name()));
+        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize(), UNSIGNED_BYTE);
     }
 }

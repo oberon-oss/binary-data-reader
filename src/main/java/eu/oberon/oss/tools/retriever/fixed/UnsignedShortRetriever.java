@@ -5,7 +5,7 @@ import eu.oberon.oss.tools.converters.fixed.UnsignedShortConverterProvider;
 
 import java.util.Objects;
 
-import static eu.oberon.oss.tools.converters.ValueTypeNames.UNSIGNED_SHORT;
+import static eu.oberon.oss.tools.ValueTypeNames.UNSIGNED_SHORT;
 
 /**
  * Retrieves an unsigned short value from a binary data reader or viewer.
@@ -15,21 +15,13 @@ import static eu.oberon.oss.tools.converters.ValueTypeNames.UNSIGNED_SHORT;
  */
 public final class UnsignedShortRetriever extends AbstractFixedLengthValueRetriever<Integer> {
 
-    private UnsignedShortRetriever() {
-        UnsignedShortConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(UNSIGNED_SHORT.name()));
-        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize());
-    }
-
-    private static final UnsignedShortRetriever INSTANCE = new UnsignedShortRetriever();
-
     /**
-     * Returns an instance of the {@code UnsignedShortRetriever} class.
-     *
-     * @return an instance of the {@code UnsignedShortRetriever} class
+     * Constructs an instance of {@code UnsignedShortRetriever}.
      *
      * @since 1.0.0
      */
-    public static UnsignedShortRetriever getInstance() {
-        return INSTANCE;
+    public UnsignedShortRetriever() {
+        UnsignedShortConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(UNSIGNED_SHORT.name()));
+        super(provider.getToObjectConverter(), provider.getExpectedByteArraySize(), UNSIGNED_SHORT);
     }
 }

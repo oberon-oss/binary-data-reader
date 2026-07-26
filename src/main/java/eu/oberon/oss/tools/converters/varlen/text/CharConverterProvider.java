@@ -1,7 +1,7 @@
 package eu.oberon.oss.tools.converters.varlen.text;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.converters.AbstractConverterProvider;
-import eu.oberon.oss.tools.converters.ValueTypeNames;
 
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;

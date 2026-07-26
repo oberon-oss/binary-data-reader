@@ -1,6 +1,6 @@
 package eu.oberon.oss.tools.converters.fixed;
 
-import eu.oberon.oss.tools.converters.ValueTypeNames;
+import eu.oberon.oss.tools.ValueTypeNames;
 
 import java.nio.ByteOrder;
 

@@ -1,7 +1,7 @@
 package eu.oberon.oss.tools.converters.fixed;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.converters.AbstractConverterProvider;
-import eu.oberon.oss.tools.converters.ValueTypeNames;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

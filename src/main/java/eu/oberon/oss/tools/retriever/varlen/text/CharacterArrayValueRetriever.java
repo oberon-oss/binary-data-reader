@@ -5,7 +5,7 @@ import eu.oberon.oss.tools.converters.varlen.text.CharacterArrayConverterProvide
 
 import java.util.Objects;
 
-import static eu.oberon.oss.tools.converters.ValueTypeNames.CHARACTER_ARRAY;
+import static eu.oberon.oss.tools.ValueTypeNames.CHARACTER_ARRAY;
 
 /**
  * Provides a retriever for string values.
@@ -14,21 +14,13 @@ import static eu.oberon.oss.tools.converters.ValueTypeNames.CHARACTER_ARRAY;
  * @since 1.0.0
  */
 public class CharacterArrayValueRetriever extends AbstractTextValueRetriever<Character[]> {
-    private CharacterArrayValueRetriever() {
-        CharacterArrayConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(CHARACTER_ARRAY.name()));
-        super(provider.getToObjectConverter());
-    }
-
-    private static final CharacterArrayValueRetriever INSTANCE = new CharacterArrayValueRetriever();
-
     /**
-     * Returns an instance of the StringValueRetriever.
-     *
-     * @return a {@link CharacterArrayValueRetriever} instance
+     * Constructs an instance of {@code CharacterArrayValueRetriever}.
      *
      * @since 1.0.0
      */
-    public static CharacterArrayValueRetriever getInstance() {
-        return INSTANCE;
+    public CharacterArrayValueRetriever() {
+        CharacterArrayConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(CHARACTER_ARRAY.name()));
+        super(provider.getToObjectConverter(), CHARACTER_ARRAY);
     }
 }

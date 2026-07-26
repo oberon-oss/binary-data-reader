@@ -1,5 +1,6 @@
 package eu.oberon.oss.tools.retriever.varlen;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.binaryreader.BinaryDataReader;
 import eu.oberon.oss.tools.binaryreader.BinaryDataViewer;
 import eu.oberon.oss.tools.binaryreader.BinaryDataViewerImpl;
@@ -15,7 +16,7 @@ public class AbstractVarLenValueRetrieverTest {
 
     private static class TestVarLenValueRetriever extends AbstractVarLenValueRetriever<byte[]> {
         protected TestVarLenValueRetriever(VarLenToObjectConverter<byte[]> converter) {
-            super(converter);
+            super(ValueTypeNames.STRING, converter);
         }
     }
 

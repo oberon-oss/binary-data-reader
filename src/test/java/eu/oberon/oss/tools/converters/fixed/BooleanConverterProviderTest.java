@@ -1,7 +1,7 @@
 package eu.oberon.oss.tools.converters.fixed;
 
+import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.converters.AbstractConverterProvider;
-import eu.oberon.oss.tools.converters.ValueTypeNames;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.nio.ByteOrder;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -99,20 +98,6 @@ class BooleanConverterProviderTest {
             assertThrows(NullPointerException.class,
                     () -> toObject.convert(null));
         }
-
-        @Test
-        @DisplayName("byte-order-aware overload throws UnsupportedOperationException")
-        void byteOrderOverloadIsUnsupported() {
-            byte[] bytes = {0x01};
-            assertAll(
-                    () -> assertThrows(UnsupportedOperationException.class,
-                            () -> toObject.convert(bytes, ByteOrder.BIG_ENDIAN)),
-                    () -> assertThrows(UnsupportedOperationException.class,
-                            () -> toObject.convert(bytes, ByteOrder.LITTLE_ENDIAN)),
-                    () -> assertThrows(UnsupportedOperationException.class,
-                            () -> toObject.convert(bytes, ByteOrder.nativeOrder()))
-            );
-        }
     }
 
     // ---------------------------------------------------------------------
@@ -148,19 +133,6 @@ class BooleanConverterProviderTest {
         @DisplayName("null Boolean causes a NullPointerException (auto-unbox of null)")
         void nullValueFails() {
             assertThrows(NullPointerException.class, () -> toBytes.convert(null));
-        }
-
-        @Test
-        @DisplayName("byte-order-aware overload throws UnsupportedOperationException")
-        void byteOrderOverloadIsUnsupported() {
-            assertAll(
-                    () -> assertThrows(UnsupportedOperationException.class,
-                            () -> toBytes.convert(true, ByteOrder.BIG_ENDIAN)),
-                    () -> assertThrows(UnsupportedOperationException.class,
-                            () -> toBytes.convert(false, ByteOrder.LITTLE_ENDIAN)),
-                    () -> assertThrows(UnsupportedOperationException.class,
-                            () -> toBytes.convert(true, ByteOrder.nativeOrder()))
-            );
         }
 
         @Test

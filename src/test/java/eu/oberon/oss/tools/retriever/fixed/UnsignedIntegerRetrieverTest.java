@@ -16,7 +16,7 @@ class UnsignedIntegerRetrieverTest {
     void testGetValueFromViewerBigEndian() {
         byte[] data = {0x00, 0x00, 0x00, 0x01}; // 1 in Big Endian
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        UnsignedIntegerRetriever retriever = UnsignedIntegerRetriever.getInstance();
+        UnsignedIntegerRetriever retriever = new UnsignedIntegerRetriever();
 
         assertEquals(1L, retriever.getValue(viewer, 0, ByteOrder.BIG_ENDIAN));
     }
@@ -25,7 +25,7 @@ class UnsignedIntegerRetrieverTest {
     void testGetValueFromViewerLittleEndian() {
         byte[] data = {0x01, 0x00, 0x00, 0x00}; // 1 in Little Endian
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
-        UnsignedIntegerRetriever retriever = UnsignedIntegerRetriever.getInstance();
+        UnsignedIntegerRetriever retriever = new UnsignedIntegerRetriever();
 
         assertEquals(1L, retriever.getValue(viewer, 0, ByteOrder.LITTLE_ENDIAN));
     }
@@ -34,7 +34,7 @@ class UnsignedIntegerRetrieverTest {
     void testGetValueFromReaderBigEndian() {
         byte[] data = {0x00, 0x00, 0x00, 0x01}; // 1 in Big Endian
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        UnsignedIntegerRetriever retriever = UnsignedIntegerRetriever.getInstance();
+        UnsignedIntegerRetriever retriever = new UnsignedIntegerRetriever();
 
         assertEquals(1L, retriever.getValue(reader, ByteOrder.BIG_ENDIAN));
     }
@@ -43,7 +43,7 @@ class UnsignedIntegerRetrieverTest {
     void testGetValueFromReaderLittleEndian() {
         byte[] data = {0x01, 0x00, 0x00, 0x00}; // 1 in Little Endian
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-        UnsignedIntegerRetriever retriever = UnsignedIntegerRetriever.getInstance();
+        UnsignedIntegerRetriever retriever = new UnsignedIntegerRetriever();
 
         assertEquals(1L, retriever.getValue(reader, ByteOrder.LITTLE_ENDIAN));
     }
