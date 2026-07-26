@@ -3,6 +3,14 @@ package eu.oberon.oss.tools.converters.varlen;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 
+/**
+ * Defines a contract for classes that convert objects from variable length byte arrays.
+ *
+ * @param <T> The type of object to convert the byte array into.
+ *
+ * @author TigerLilly64
+ * @since 1.0.0
+ */
 public interface VarLenToByteConverter<T> {
     /**
      * Converts the specified input object into a byte array representation, using {@link Charset#defaultCharset()} and {@link ByteOrder#nativeOrder()}.
