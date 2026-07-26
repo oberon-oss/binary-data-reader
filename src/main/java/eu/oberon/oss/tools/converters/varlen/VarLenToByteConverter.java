@@ -21,7 +21,9 @@ public interface VarLenToByteConverter<T> {
      * @param input     The input object to be converted.
      * @param byteOrder The byte order to use for the conversion.
      *
-     * @return
+     * @return The byte array representation of the input object.
+     *
+     * @since 1.0.0
      */
     byte[] convert(T input, ByteOrder byteOrder);
 
