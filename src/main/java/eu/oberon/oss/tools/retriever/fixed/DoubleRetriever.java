@@ -25,7 +25,4 @@ public final class DoubleRetriever extends AbstractFixedLengthValueRetriever<Dou
         DoubleConverterProvider provider = Objects.requireNonNull(AbstractConverterProvider.getConverterProvider(DOUBLE.name()));
         super(provider.getToObjectConverter(), provider.getExpectedByteArraySize(), DOUBLE);
     }
-
-    private static final DoubleRetriever INSTANCE = new DoubleRetriever();
-
 }
