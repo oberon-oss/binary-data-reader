@@ -29,7 +29,6 @@ public abstract class AbstractTextValueRetriever<T> extends AbstractVarLenValueR
         super(converter);
     }
 
-
     @Override
     public T getValue(BinaryDataReader reader, int length, ByteOrder byteOrder, Charset charset) {
         TextToObjectConverter<T> converter = (TextToObjectConverter<T>) getConverter();
@@ -52,24 +51,47 @@ public abstract class AbstractTextValueRetriever<T> extends AbstractVarLenValueR
         return getValue(reader, length, ByteOrder.nativeOrder(), charset);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This method overrides the implementation in {@link AbstractVarLenValueRetriever} to provide a default charset.
+     *
+     */
     @Override
-    public T getValue(BinaryDataViewer viewer, int offset, int length) {
+    public final T getValue(BinaryDataViewer viewer, int offset, int length) {
         return getValue(viewer, offset, length, ByteOrder.nativeOrder(), Charset.defaultCharset());
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This method overrides the implementation in {@link AbstractVarLenValueRetriever} to provide a default charset.
+     *
+     */
     @Override
-    public T getValue(BinaryDataViewer viewer, int offset, int length, ByteOrder byteOrder) {
+    public final T getValue(BinaryDataViewer viewer, int offset, int length, ByteOrder byteOrder) {
         return getValue(viewer, offset, length, byteOrder, Charset.defaultCharset());
     }
 
-
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This method overrides the implementation in {@link AbstractVarLenValueRetriever} to provide a default charset.
+     *
+     */
     @Override
-    public T getValue(BinaryDataReader reader, int length) {
+    public final T getValue(BinaryDataReader reader, int length) {
         return getValue(reader, length, ByteOrder.nativeOrder(), Charset.defaultCharset());
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * This method overrides the implementation in {@link AbstractVarLenValueRetriever} to provide a default charset.
+     *
+     */
     @Override
-    public T getValue(BinaryDataReader reader, int length, ByteOrder byteOrder) {
+    public final T getValue(BinaryDataReader reader, int length, ByteOrder byteOrder) {
         return getValue(reader, length, byteOrder, Charset.defaultCharset());
     }
 
