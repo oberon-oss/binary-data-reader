@@ -92,4 +92,71 @@ public interface BinaryDataReader {
      * @since 1.0.0
      */
     void readBytes(byte[] target, int offset);
+
+    /**
+     * Returns the number of bytes remaining from the current reader position.
+     *
+     * @return the number of unread bytes
+     *
+     * @since 1.0.0
+     */
+    int remaining();
+
+    /**
+     * Returns whether at least one byte remains available for reading.
+     *
+     * @return {@code true} if at least one byte remains, otherwise {@code false}
+     *
+     * @since 1.0.0
+     */
+    default boolean hasRemaining() {
+        return remaining() > 0;
+    }
+
+    /**
+     * Returns whether the given number of bytes remains available for reading.
+     *
+     * @param length the number of bytes to check
+     *
+     * @return {@code true} if {@code length} bytes remain available, otherwise {@code false}
+     *
+     * @throws IllegalArgumentException if {@code length} is negative
+     * @since 1.0.0
+     */
+    default boolean hasRemaining(int length) {
+        if (length < 0) {
+            throw new IllegalArgumentException("length must not be negative");
+        }
+        return remaining() >= length;
+    }
+
+    /**
+     * Returns whether the bytes at the current reader offset match the expected byte sequence.
+     * <p>
+     * This method does not advance or otherwise change the reader offset.
+     *
+     * @param expected the expected byte sequence
+     *
+     * @return {@code true} if the bytes at the current reader offset match {@code expected}, otherwise {@code false}
+     *
+     * @throws NullPointerException if {@code expected} is null
+     * @since 1.0.0
+     */
+    boolean matches(byte[] expected);
+
+    /**
+     * Returns whether the bytes at the given absolute offset match the expected byte sequence.
+     * <p>
+     * This method does not advance or otherwise change the reader offset.
+     *
+     * @param offset   the absolute offset to check from
+     * @param expected the expected byte sequence
+     *
+     * @return {@code true} if the bytes at {@code offset} match {@code expected}, otherwise {@code false}
+     *
+     * @throws NullPointerException      if {@code expected} is null
+     * @throws IndexOutOfBoundsException if {@code offset} is outside the data bounds
+     * @since 1.0.0
+     */
+    boolean matches(int offset, byte[] expected);
 }

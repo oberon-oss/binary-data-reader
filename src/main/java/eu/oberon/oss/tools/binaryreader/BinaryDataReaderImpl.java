@@ -71,4 +71,32 @@ public final class BinaryDataReaderImpl implements BinaryDataReader {
         viewer.peekBytes(target, offset);
         this.offset = offset + target.length;
     }
+
+    @Override
+    public int remaining() {
+        return viewer.size() - offset;
+    }
+
+    @Override
+    public boolean matches(byte[] expected) {
+        return matches(offset, expected);
+    }
+
+    @Override
+    public boolean matches(int offset, byte[] expected) {
+        Objects.requireNonNull(expected, "Parameter: expected");
+        Objects.checkFromIndexSize(offset, 0, viewer.size());
+
+        if (expected.length > viewer.size() - offset) {
+            return false;
+        }
+
+        for (int index = 0; index < expected.length; index++) {
+            if (viewer.peekByte(offset + index) != expected[index]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -8,6 +8,240 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BinaryDataReaderImplTest {
 
+    @Test
+    void remainingReturnsTotalSizeBeforeReading() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        int remaining = reader.remaining();
+
+        assertEquals(4, remaining);
+    }
+
+    @Test
+    void remainingReturnsUnreadByteCountAfterReadingBytes() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(2);
+
+        assertEquals(2, reader.remaining());
+    }
+
+    @Test
+    void remainingReturnsZeroWhenAllBytesHaveBeenRead() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(4);
+
+        assertEquals(0, reader.remaining());
+    }
+
+    @Test
+    void hasRemainingReturnsTrueBeforeAllBytesHaveBeenRead() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(3);
+
+        assertTrue(reader.hasRemaining());
+    }
+
+    @Test
+    void hasRemainingReturnsFalseWhenAllBytesHaveBeenRead() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(4);
+
+        assertFalse(reader.hasRemaining());
+    }
+
+    @Test
+    void hasRemainingReturnsFalseForEmptyReader() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[0]).getReader();
+
+        assertFalse(reader.hasRemaining());
+        assertEquals(0, reader.remaining());
+    }
+
+    @Test
+    void hasRemainingLengthReturnsTrueWhenEnoughBytesRemain() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(1);
+
+        assertTrue(reader.hasRemaining(3));
+    }
+
+    @Test
+    void hasRemainingLengthReturnsTrueWhenRequestedLengthExactlyMatchesRemainingBytes() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(2);
+
+        assertTrue(reader.hasRemaining(2));
+    }
+
+    @Test
+    void hasRemainingLengthReturnsFalseWhenNotEnoughBytesRemain() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(2);
+
+        assertFalse(reader.hasRemaining(3));
+    }
+
+    @Test
+    void hasRemainingLengthReturnsTrueForZeroLength() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(4);
+
+        assertTrue(reader.hasRemaining(0));
+    }
+
+    @Test
+    void hasRemainingLengthThrowsIllegalArgumentExceptionForNegativeLength() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> reader.hasRemaining(-1)
+        );
+
+        assertEquals("length must not be negative", exception.getMessage());
+    }
+
+    @Test
+    void matchesReturnsTrueWhenBytesAtCurrentOffsetMatchExpectedPattern() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertTrue(reader.matches(new byte[]{1, 2}));
+    }
+
+    @Test
+    void matchesReturnsFalseWhenBytesAtCurrentOffsetDoNotMatchExpectedPattern() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertFalse(reader.matches(new byte[]{1, 3}));
+    }
+
+    @Test
+    void matchesUsesCurrentReaderOffset() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readByte();
+
+        assertTrue(reader.matches(new byte[]{2, 3}));
+    }
+
+    @Test
+    void matchesDoesNotAdvanceReaderOffset() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertTrue(reader.matches(new byte[]{1, 2}));
+        assertEquals(4, reader.remaining());
+        assertEquals(1, reader.readByte());
+    }
+
+    @Test
+    void matchesReturnsFalseWhenExpectedPatternIsLongerThanRemainingBytes() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        reader.readBytes(3);
+
+        assertFalse(reader.matches(new byte[]{4, 5}));
+        assertEquals(1, reader.remaining());
+    }
+
+    @Test
+    void matchesReturnsTrueForEmptyExpectedPatternAtCurrentOffset() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertTrue(reader.matches(new byte[0]));
+        assertEquals(4, reader.remaining());
+    }
+
+    @Test
+    void matchesThrowsNullPointerExceptionWhenExpectedPatternIsNull() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        NullPointerException exception = assertThrows(
+                NullPointerException.class,
+                () -> reader.matches(null)
+        );
+
+        assertEquals("Parameter: expected", exception.getMessage());
+    }
+
+    @Test
+    void matchesOffsetReturnsTrueWhenBytesAtOffsetMatchExpectedPattern() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertTrue(reader.matches(1, new byte[]{2, 3}));
+    }
+
+    @Test
+    void matchesOffsetReturnsFalseWhenBytesAtOffsetDoNotMatchExpectedPattern() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertFalse(reader.matches(1, new byte[]{2, 4}));
+    }
+
+    @Test
+    void matchesOffsetDoesNotAdvanceReaderOffset() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertTrue(reader.matches(2, new byte[]{3, 4}));
+        assertEquals(4, reader.remaining());
+        assertEquals(1, reader.readByte());
+    }
+
+    @Test
+    void matchesOffsetReturnsFalseWhenExpectedPatternExtendsPastEndOfData() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertFalse(reader.matches(3, new byte[]{4, 5}));
+        assertEquals(4, reader.remaining());
+    }
+
+    @Test
+    void matchesOffsetReturnsTrueForEmptyExpectedPatternAtEndOffset() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertTrue(reader.matches(4, new byte[0]));
+        assertEquals(4, reader.remaining());
+    }
+
+    @Test
+    void matchesOffsetThrowsNullPointerExceptionWhenExpectedPatternIsNull() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        NullPointerException exception = assertThrows(
+                NullPointerException.class,
+                () -> reader.matches(0, null)
+        );
+
+        assertEquals("Parameter: expected", exception.getMessage());
+    }
+
+    @Test
+    void matchesOffsetThrowsIndexOutOfBoundsExceptionWhenOffsetIsNegative() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> reader.matches(-1, new byte[]{1})
+        );
+    }
+
+    @Test
+    void matchesOffsetThrowsIndexOutOfBoundsExceptionWhenOffsetIsGreaterThanSize() {
+        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
+
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> reader.matches(5, new byte[0])
+        );
+    }
+
     @Nested
     @DisplayName("Construction")
     class Construction {

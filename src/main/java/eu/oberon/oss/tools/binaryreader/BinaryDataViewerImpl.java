@@ -31,6 +31,7 @@ public class BinaryDataViewerImpl implements BinaryDataViewer {
      *
      * @since 1.0.0
      */
+    @Override
     public int size() {
         return data.length;
     }

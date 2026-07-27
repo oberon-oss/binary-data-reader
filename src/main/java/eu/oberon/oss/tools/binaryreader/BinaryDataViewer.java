@@ -9,6 +9,15 @@ package eu.oberon.oss.tools.binaryreader;
 public interface BinaryDataViewer {
 
     /**
+     * Returns the size of the binary data.
+     *
+     * @return the size of the binary data
+     *
+     * @since 1.0.0
+     */
+    int size();
+
+    /**
      * Ensures that a byte can be read at the given offset.
      *
      * @param offset the zero-based offset to check
