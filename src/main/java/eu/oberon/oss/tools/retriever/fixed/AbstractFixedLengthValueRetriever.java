@@ -4,6 +4,7 @@ import eu.oberon.oss.tools.ValueTypeNames;
 import eu.oberon.oss.tools.binaryreader.BinaryDataReader;
 import eu.oberon.oss.tools.binaryreader.BinaryDataViewer;
 import eu.oberon.oss.tools.converters.fixed.FixedToObjectConverter;
+import eu.oberon.oss.tools.retriever.AbstractValueRetriever;
 
 import java.nio.ByteOrder;
 
@@ -15,10 +16,10 @@ import java.nio.ByteOrder;
  * @author TigerLilly64
  * @since 1.0.0
  */
-public abstract class AbstractFixedLengthValueRetriever<T> implements FixedLengthValueRetriever<T> {
+public abstract class AbstractFixedLengthValueRetriever<T> extends AbstractValueRetriever implements FixedLengthValueRetriever<T> {
     private final FixedToObjectConverter<T> converter;
     private final int expectedByteArraySize;
-    private final ValueTypeNames valueTypeName;
+
 
     /**
      * Constructs a new AbstractFixedLengthValueRetriever with the specified converter and expected byte array size.
@@ -30,14 +31,10 @@ public abstract class AbstractFixedLengthValueRetriever<T> implements FixedLengt
      * @since 1.0.0
      */
     protected AbstractFixedLengthValueRetriever(FixedToObjectConverter<T> converter, int expectedByteArraySize, ValueTypeNames valueTypeName) {
+        super(valueTypeName);
         this.converter = converter;
         this.expectedByteArraySize = expectedByteArraySize;
-        this.valueTypeName = valueTypeName;
-    }
 
-    @Override
-    public String getValueTypeName() {
-        return valueTypeName.name();
     }
 
     @Override
