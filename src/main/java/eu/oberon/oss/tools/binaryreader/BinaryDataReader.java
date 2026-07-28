@@ -159,4 +159,15 @@ public interface BinaryDataReader {
      * @since 1.0.0
      */
     boolean matches(int offset, byte[] expected);
+
+    /**
+     * Advances the reader offset by the given length.
+     *
+     * @param length the length to skip, this value can be positive (skipt forward) or negative (skip backward), as long as the index does not go outside the
+     *               data bounds
+     *
+     * @throws IllegalArgumentException if {@code length} is negative
+     * @since 1.0.0
+     */
+    void skip(int length);
 }

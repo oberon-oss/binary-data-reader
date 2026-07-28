@@ -99,4 +99,9 @@ public final class BinaryDataReaderImpl implements BinaryDataReader {
 
         return true;
     }
+
+    @Override
+    public void skip(int length) {
+        offset(offset + length);
+    }
 }

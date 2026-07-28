@@ -242,6 +242,74 @@ class BinaryDataReaderImplTest {
         );
     }
 
+    @Test
+    void testSkipForward() {
+        byte[] data = {1, 2, 3, 4, 5};
+        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
+
+        reader.skip(3);
+
+        assertEquals(3, reader.offset());
+        assertEquals(2, reader.remaining());
+    }
+
+    @Test
+    void testSkipBackward() {
+        byte[] data = {1, 2, 3, 4, 5};
+        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
+
+        reader.skip(4);
+        reader.skip(-2);
+
+        assertEquals(2, reader.offset());
+        assertEquals(3, reader.remaining());
+    }
+
+    @Test
+    void testSkipZeroDoesNotChangeOffset() {
+        byte[] data = {1, 2, 3, 4, 5};
+        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
+
+        reader.skip(2);
+        reader.skip(0);
+
+        assertEquals(2, reader.offset());
+        assertEquals(3, reader.remaining());
+    }
+
+    @Test
+    void testSkipToEnd() {
+        byte[] data = {1, 2, 3, 4, 5};
+        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
+
+        reader.skip(data.length);
+
+        assertEquals(data.length, reader.offset());
+        assertEquals(0, reader.remaining());
+    }
+
+    @Test
+    void testSkipBeyondEndThrowsExceptionAndKeepsOffset() {
+        byte[] data = {1, 2, 3, 4, 5};
+        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
+
+        reader.skip(2);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> reader.skip(4));
+        assertEquals(2, reader.offset());
+    }
+
+    @Test
+    void testSkipBeforeStartThrowsExceptionAndKeepsOffset() {
+        byte[] data = {1, 2, 3, 4, 5};
+        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
+
+        reader.skip(2);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> reader.skip(-3));
+        assertEquals(2, reader.offset());
+    }
+
     @Nested
     @DisplayName("Construction")
     class Construction {
