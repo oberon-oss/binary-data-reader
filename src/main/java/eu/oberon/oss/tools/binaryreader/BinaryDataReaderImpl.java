@@ -104,4 +104,9 @@ public final class BinaryDataReaderImpl implements BinaryDataReader {
     public void skip(int length) {
         offset(offset + length);
     }
+
+    @Override
+    public BinaryDataViewer getViewer() {
+        return viewer;
+    }
 }

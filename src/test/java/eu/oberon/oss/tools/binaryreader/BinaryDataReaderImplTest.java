@@ -701,4 +701,18 @@ class BinaryDataReaderImplTest {
             );
         }
     }
+
+    @Nested
+    @DisplayName("getViewer()")
+    class GetViewer {
+
+        @Test
+        @DisplayName("returns the underlying viewer")
+        void returnsUnderlyingViewer() {
+            BinaryDataViewer viewer = new BinaryDataViewerImpl(new byte[]{1, 2, 3});
+            BinaryDataReader reader = new BinaryDataReaderImpl(viewer);
+
+            assertSame(viewer, reader.getViewer());
+        }
+    }
 }

@@ -170,4 +170,13 @@ public interface BinaryDataReader {
      * @since 1.0.0
      */
     void skip(int length);
+
+    /**
+     * Returns the viewer that is being used by this reader.
+     *
+     * @return the viewer being used
+     *
+     * @since 1.0.0
+     */
+    BinaryDataViewer getViewer();
 }

@@ -88,7 +88,7 @@ public abstract class AbstractValueRetriever implements ValueRetriever {
             replacedExisting = true;
         }
         RETRIEVER_HASH_MAP.put(name, retriever);
-        LOGGER.info("Registered retriever: {} -> {}", name, retriever.getClass().getName());
+        LOGGER.debug("Registered retriever: {} -> {}", name, retriever.getClass().getName());
         return replacedExisting;
     }
 }
