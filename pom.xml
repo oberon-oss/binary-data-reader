@@ -6,8 +6,8 @@
 
     <parent>
         <groupId>eu.oberon-oss</groupId>
-        <artifactId>boms</artifactId>
-        <version>3.25.3</version>
+        <artifactId>project-settings-parent</artifactId>
+        <version>4.25.3</version>
     </parent>
 
     <groupId>eu.oberon-oss.tools</groupId>
@@ -15,7 +15,10 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <argLine/>  <!--make sure a argLine variable at least EXISTS!-->
+        <!--suppress XmlUnresolvedReference -->
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <argLine/>
+        <sonar.projectKey>oberon-oss_binary-data-reader</sonar.projectKey>
     </properties>
 
     <dependencies>
@@ -34,10 +37,33 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.32</version>
             <scope>test</scope>
         </dependency>
 
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>https://nexus.oberon-oss.eu/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>nexus-snapshots</id>
+            <url>https://nexus.oberon-oss.eu/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
