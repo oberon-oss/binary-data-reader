@@ -11,9 +11,9 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StringValueRetrieverTest {
+class StringValueRetrieverTest {
     @Test
-    public void testGetValueFromViewer() {
+    void testGetValueFromViewer() {
         byte[] data = "Hello World".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         StringValueRetriever retriever = new StringValueRetriever();
@@ -23,7 +23,7 @@ public class StringValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromViewerWithCharset() {
+    void testGetValueFromViewerWithCharset() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_16BE);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         StringValueRetriever retriever = new StringValueRetriever();
@@ -32,7 +32,7 @@ public class StringValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromViewerWithCharsetAndByteOrder() {
+    void testGetValueFromViewerWithCharsetAndByteOrder() {
         // UTF-16LE bytes for "Hello" without BOM
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_16LE);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
@@ -43,7 +43,7 @@ public class StringValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromViewerWithByteOrder() {
+    void testGetValueFromViewerWithByteOrder() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         StringValueRetriever retriever = new StringValueRetriever();
@@ -52,7 +52,7 @@ public class StringValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromReader() {
+    void testGetValueFromReader() {
         byte[] data = "Hello World".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
@@ -64,7 +64,7 @@ public class StringValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromReaderWithCharset() {
+    void testGetValueFromReaderWithCharset() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_16LE);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
@@ -74,7 +74,7 @@ public class StringValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromReaderWithByteOrder() {
+    void testGetValueFromReaderWithByteOrder() {
         byte[] data = "Hello".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();

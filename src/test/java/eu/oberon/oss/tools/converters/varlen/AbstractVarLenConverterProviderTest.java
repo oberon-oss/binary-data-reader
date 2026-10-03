@@ -185,69 +185,77 @@ class AbstractTextConverterProviderTest {
         @Test
         @DisplayName("to-object converter rejects null byte array")
         void toObjectConverterRejectsNullByteArray() {
+            TextToObjectConverter<StringBuilder> converter = provider.getToObjectConverter();
+
             assertAll(
-                    () -> assertThrows(NullPointerException.class, () -> provider.getToObjectConverter().convert(null)),
+                    () -> assertThrows(NullPointerException.class, () -> converter.convert(null)),
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToObjectConverter().convert(null, StandardCharsets.UTF_8)),
+                            () -> converter.convert(null, StandardCharsets.UTF_8)),
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToObjectConverter().convert(null, StandardCharsets.UTF_8, ByteOrder.BIG_ENDIAN))
+                            () -> converter.convert(null, StandardCharsets.UTF_8, ByteOrder.BIG_ENDIAN))
             );
         }
 
         @Test
         @DisplayName("to-object converter rejects null charset")
         void toObjectConverterRejectsNullCharset() {
+            TextToObjectConverter<StringBuilder> converter = provider.getToObjectConverter();
             byte[] input = "A".getBytes(StandardCharsets.UTF_8);
 
             assertAll(
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToObjectConverter().convert(input, (Charset) null)),
+                            () -> converter.convert(input, (Charset) null)),
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToObjectConverter().convert(input, null, ByteOrder.BIG_ENDIAN))
+                            () -> converter.convert(input, null, ByteOrder.BIG_ENDIAN))
             );
         }
 
         @Test
         @DisplayName("to-object converter rejects null byte order")
         void toObjectConverterRejectsNullByteOrder() {
+            TextToObjectConverter<StringBuilder> converter = provider.getToObjectConverter();
             byte[] input = "A".getBytes(StandardCharsets.UTF_8);
 
             assertThrows(NullPointerException.class,
-                    () -> provider.getToObjectConverter().convert(input, StandardCharsets.UTF_8, null));
+                    () -> converter.convert(input, StandardCharsets.UTF_8, null));
         }
 
         @Test
         @DisplayName("to-byte converter rejects null value")
         void toByteConverterRejectsNullValue() {
+            TextToByteConverter<StringBuilder> converter = provider.getToByteConverter();
+
             assertAll(
-                    () -> assertThrows(NullPointerException.class, () -> provider.getToByteConverter().convert(null)),
+                    () -> assertThrows(NullPointerException.class, () -> converter.convert(null)),
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToByteConverter().convert(null, StandardCharsets.UTF_8)),
+                            () -> converter.convert(null, StandardCharsets.UTF_8)),
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToByteConverter().convert(null, StandardCharsets.UTF_8, ByteOrder.BIG_ENDIAN))
+                            () -> converter.convert(null, StandardCharsets.UTF_8, ByteOrder.BIG_ENDIAN))
             );
         }
 
         @Test
         @DisplayName("to-byte converter rejects null charset")
         void toByteConverterRejectsNullCharset() {
+            TextToByteConverter<StringBuilder> converter = provider.getToByteConverter();
             StringBuilder input = new StringBuilder("A");
 
             assertAll(
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToByteConverter().convert(input, (Charset) null)),
+                            () -> converter.convert(input, (Charset) null)),
                     () -> assertThrows(NullPointerException.class,
-                            () -> provider.getToByteConverter().convert(input, null, ByteOrder.BIG_ENDIAN))
+                            () -> converter.convert(input, null, ByteOrder.BIG_ENDIAN))
             );
         }
 
         @Test
         @DisplayName("to-byte converter rejects null byte order")
         void toByteConverterRejectsNullByteOrder() {
+            TextToByteConverter<StringBuilder> converter = provider.getToByteConverter();
             StringBuilder input = new StringBuilder("A");
 
             assertThrows(NullPointerException.class,
-                    () -> provider.getToByteConverter().convert(input, StandardCharsets.UTF_8, null));
+                    () -> converter.convert(input, StandardCharsets.UTF_8, null));
         }
     }
 }

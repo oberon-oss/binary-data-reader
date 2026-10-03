@@ -10,10 +10,10 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CharacterValueRetrieverTest {
+class CharacterValueRetrieverTest {
 
     @Test
-    public void testGetValueFromViewer() {
+    void testGetValueFromViewer() {
         byte[] data = "ABC".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         CharacterValueRetriever retriever = new CharacterValueRetriever();
@@ -24,7 +24,7 @@ public class CharacterValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromReader() {
+    void testGetValueFromReader() {
         byte[] data = "ABC".getBytes(StandardCharsets.UTF_8);
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();

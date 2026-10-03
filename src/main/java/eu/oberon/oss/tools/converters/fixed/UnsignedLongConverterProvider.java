@@ -29,6 +29,7 @@ public class UnsignedLongConverterProvider extends AbstractFixedConverterProvide
      *
      * @since 1.0.0
      */
+    @SuppressWarnings("java:S3776") // There is no point in reducing the complexity from 16 to 15.
     public UnsignedLongConverterProvider() {
         super(ValueTypeNames.UNSIGNED_LONG, 8);
         toObjectConverter = new FixedToObjectConverter<>() {

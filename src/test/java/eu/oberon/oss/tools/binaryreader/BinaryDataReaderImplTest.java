@@ -3,6 +3,13 @@ package eu.oberon.oss.tools.binaryreader;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,40 +24,30 @@ class BinaryDataReaderImplTest {
         assertEquals(4, remaining);
     }
 
-    @Test
-    void remainingReturnsUnreadByteCountAfterReadingBytes() {
+    @ParameterizedTest
+    @CsvSource({
+            "2, 2",
+            "4, 0"
+    })
+    void remainingReturnsUnreadByteCountAfterReadingBytes(int bytesToRead, int expectedRemaining) {
         BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
 
-        reader.readBytes(2);
+        reader.readBytes(bytesToRead);
 
-        assertEquals(2, reader.remaining());
+        assertEquals(expectedRemaining, reader.remaining());
     }
 
-    @Test
-    void remainingReturnsZeroWhenAllBytesHaveBeenRead() {
+    @ParameterizedTest
+    @CsvSource({
+            "3, true",
+            "4, false"
+    })
+    void hasRemainingReturnsExpectedResult(int bytesRead, boolean expected) {
         BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
 
-        reader.readBytes(4);
+        reader.readBytes(bytesRead);
 
-        assertEquals(0, reader.remaining());
-    }
-
-    @Test
-    void hasRemainingReturnsTrueBeforeAllBytesHaveBeenRead() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        reader.readBytes(3);
-
-        assertTrue(reader.hasRemaining());
-    }
-
-    @Test
-    void hasRemainingReturnsFalseWhenAllBytesHaveBeenRead() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        reader.readBytes(4);
-
-        assertFalse(reader.hasRemaining());
+        assertEquals(expected, reader.hasRemaining());
     }
 
     @Test
@@ -61,40 +58,19 @@ class BinaryDataReaderImplTest {
         assertEquals(0, reader.remaining());
     }
 
-    @Test
-    void hasRemainingLengthReturnsTrueWhenEnoughBytesRemain() {
+    @ParameterizedTest
+    @CsvSource({
+            "1, 3, true",
+            "2, 2, true",
+            "2, 3, false",
+            "4, 0, true"
+    })
+    void hasRemainingLengthReturnsExpectedResult(int bytesRead, int length, boolean expected) {
         BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
 
-        reader.readBytes(1);
+        reader.readBytes(bytesRead);
 
-        assertTrue(reader.hasRemaining(3));
-    }
-
-    @Test
-    void hasRemainingLengthReturnsTrueWhenRequestedLengthExactlyMatchesRemainingBytes() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        reader.readBytes(2);
-
-        assertTrue(reader.hasRemaining(2));
-    }
-
-    @Test
-    void hasRemainingLengthReturnsFalseWhenNotEnoughBytesRemain() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        reader.readBytes(2);
-
-        assertFalse(reader.hasRemaining(3));
-    }
-
-    @Test
-    void hasRemainingLengthReturnsTrueForZeroLength() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        reader.readBytes(4);
-
-        assertTrue(reader.hasRemaining(0));
+        assertEquals(expected, reader.hasRemaining(length));
     }
 
     @Test
@@ -109,18 +85,19 @@ class BinaryDataReaderImplTest {
         assertEquals("length must not be negative", exception.getMessage());
     }
 
-    @Test
-    void matchesReturnsTrueWhenBytesAtCurrentOffsetMatchExpectedPattern() {
+    @ParameterizedTest
+    @MethodSource("matchesPatterns")
+    void matchesReturnsExpectedResultForPatternAtCurrentOffset(byte[] pattern, boolean expected) {
         BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
 
-        assertTrue(reader.matches(new byte[]{1, 2}));
+        assertEquals(expected, reader.matches(pattern));
     }
 
-    @Test
-    void matchesReturnsFalseWhenBytesAtCurrentOffsetDoNotMatchExpectedPattern() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        assertFalse(reader.matches(new byte[]{1, 3}));
+    private static Stream<Arguments> matchesPatterns() {
+        return Stream.of(
+                Arguments.of(new byte[]{1, 2}, true),
+                Arguments.of(new byte[]{1, 3}, false)
+        );
     }
 
     @Test
@@ -171,18 +148,19 @@ class BinaryDataReaderImplTest {
         assertEquals("Parameter: expected", exception.getMessage());
     }
 
-    @Test
-    void matchesOffsetReturnsTrueWhenBytesAtOffsetMatchExpectedPattern() {
+    @ParameterizedTest
+    @MethodSource("matchesOffsetPatterns")
+    void matchesOffsetReturnsExpectedResult(int offset, byte[] pattern, boolean expected) {
         BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
 
-        assertTrue(reader.matches(1, new byte[]{2, 3}));
+        assertEquals(expected, reader.matches(offset, pattern));
     }
 
-    @Test
-    void matchesOffsetReturnsFalseWhenBytesAtOffsetDoNotMatchExpectedPattern() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        assertFalse(reader.matches(1, new byte[]{2, 4}));
+    private static Stream<Arguments> matchesOffsetPatterns() {
+        return Stream.of(
+                Arguments.of(1, new byte[]{2, 3}, true),
+                Arguments.of(1, new byte[]{2, 4}, false)
+        );
     }
 
     @Test
@@ -222,23 +200,21 @@ class BinaryDataReaderImplTest {
         assertEquals("Parameter: expected", exception.getMessage());
     }
 
-    @Test
-    void matchesOffsetThrowsIndexOutOfBoundsExceptionWhenOffsetIsNegative() {
+    @ParameterizedTest
+    @MethodSource("invalidMatchesOffsetParameters")
+    void matchesOffsetThrowsIndexOutOfBoundsExceptionWhenOffsetIsInvalid(int offset, byte[] pattern) {
         BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
 
         assertThrows(
                 IndexOutOfBoundsException.class,
-                () -> reader.matches(-1, new byte[]{1})
+                () -> reader.matches(offset, pattern)
         );
     }
 
-    @Test
-    void matchesOffsetThrowsIndexOutOfBoundsExceptionWhenOffsetIsGreaterThanSize() {
-        BinaryDataReader reader = new BinaryDataViewerImpl(new byte[]{1, 2, 3, 4}).getReader();
-
-        assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> reader.matches(5, new byte[0])
+    private static Stream<Arguments> invalidMatchesOffsetParameters() {
+        return Stream.of(
+                Arguments.of(-1, new byte[]{1}),
+                Arguments.of(5, new byte[0])
         );
     }
 
@@ -288,25 +264,15 @@ class BinaryDataReaderImplTest {
         assertEquals(0, reader.remaining());
     }
 
-    @Test
-    void testSkipBeyondEndThrowsExceptionAndKeepsOffset() {
+    @ParameterizedTest
+    @ValueSource(ints = {4, -3})
+    void testSkipBeyondBoundsThrowsExceptionAndKeepsOffset(int skipAmount) {
         byte[] data = {1, 2, 3, 4, 5};
         BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
 
         reader.skip(2);
 
-        assertThrows(IndexOutOfBoundsException.class, () -> reader.skip(4));
-        assertEquals(2, reader.offset());
-    }
-
-    @Test
-    void testSkipBeforeStartThrowsExceptionAndKeepsOffset() {
-        byte[] data = {1, 2, 3, 4, 5};
-        BinaryDataReader reader = new BinaryDataReaderImpl(new BinaryDataViewerImpl(data));
-
-        reader.skip(2);
-
-        assertThrows(IndexOutOfBoundsException.class, () -> reader.skip(-3));
+        assertThrows(IndexOutOfBoundsException.class, () -> reader.skip(skipAmount));
         assertEquals(2, reader.offset());
     }
 
@@ -337,33 +303,20 @@ class BinaryDataReaderImplTest {
                 new BinaryDataViewerImpl(new byte[]{0x01, 0x02, 0x03})
         );
 
-        @Test
+        @ParameterizedTest
+        @ValueSource(ints = {2, 3})
         @DisplayName("sets offset to valid position")
-        void setsOffsetToValidPosition() {
-            reader.offset(2);
+        void setsOffsetToValidPosition(int validOffset) {
+            reader.offset(validOffset);
 
-            assertEquals(2, reader.offset());
+            assertEquals(validOffset, reader.offset());
         }
 
-        @Test
-        @DisplayName("sets offset to end position")
-        void setsOffsetToEndPosition() {
-            reader.offset(3);
-
-            assertEquals(3, reader.offset());
-        }
-
-        @Test
-        @DisplayName("rejects negative offset")
-        void rejectsNegativeOffset() {
-            assertThrows(IndexOutOfBoundsException.class, () -> reader.offset(-1));
-            assertEquals(0, reader.offset());
-        }
-
-        @Test
-        @DisplayName("rejects offset greater than size")
-        void rejectsOffsetGreaterThanSize() {
-            assertThrows(IndexOutOfBoundsException.class, () -> reader.offset(4));
+        @ParameterizedTest
+        @ValueSource(ints = {-1, 4})
+        @DisplayName("rejects invalid offset")
+        void rejectsInvalidOffset(int invalidOffset) {
+            assertThrows(IndexOutOfBoundsException.class, () -> reader.offset(invalidOffset));
             assertEquals(0, reader.offset());
         }
 
@@ -456,17 +409,11 @@ class BinaryDataReaderImplTest {
             );
         }
 
-        @Test
-        @DisplayName("rejects negative offset")
-        void rejectsNegativeOffset() {
-            assertThrows(IndexOutOfBoundsException.class, () -> reader.readByte(-1));
-            assertEquals(0, reader.offset());
-        }
-
-        @Test
-        @DisplayName("rejects offset equal to size")
-        void rejectsOffsetEqualToSize() {
-            assertThrows(IndexOutOfBoundsException.class, () -> reader.readByte(3));
+        @ParameterizedTest
+        @ValueSource(ints = {-1, 3})
+        @DisplayName("rejects invalid offset")
+        void rejectsInvalidOffset(int invalidOffset) {
+            assertThrows(IndexOutOfBoundsException.class, () -> reader.readByte(invalidOffset));
             assertEquals(0, reader.offset());
         }
 
@@ -669,21 +616,13 @@ class BinaryDataReaderImplTest {
             assertEquals(0, reader.offset());
         }
 
-        @Test
-        @DisplayName("rejects negative offset")
-        void rejectsNegativeOffset() {
-            byte[] target = new byte[1];
-
-            assertThrows(IndexOutOfBoundsException.class, () -> reader.readBytes(target, -1));
-            assertEquals(0, reader.offset());
-        }
-
-        @Test
-        @DisplayName("rejects range that exceeds size")
-        void rejectsRangeThatExceedsSize() {
+        @ParameterizedTest
+        @ValueSource(ints = {-1, 3})
+        @DisplayName("rejects invalid offset")
+        void rejectsInvalidOffset(int invalidOffset) {
             byte[] target = new byte[2];
 
-            assertThrows(IndexOutOfBoundsException.class, () -> reader.readBytes(target, 3));
+            assertThrows(IndexOutOfBoundsException.class, () -> reader.readBytes(target, invalidOffset));
             assertEquals(0, reader.offset());
         }
 

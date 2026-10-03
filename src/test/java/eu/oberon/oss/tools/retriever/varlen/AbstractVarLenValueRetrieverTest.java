@@ -12,7 +12,7 @@ import java.nio.ByteOrder;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AbstractVarLenValueRetrieverTest {
+class AbstractVarLenValueRetrieverTest {
 
     private static class TestVarLenValueRetriever extends AbstractVarLenValueRetriever<byte[]> {
         protected TestVarLenValueRetriever(VarLenToObjectConverter<byte[]> converter) {
@@ -33,7 +33,7 @@ public class AbstractVarLenValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromViewer() {
+    void testGetValueFromViewer() {
         byte[] data = {1, 2, 3, 4, 5};
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         TestVarLenValueRetriever retriever = new TestVarLenValueRetriever(new TestConverter());
@@ -43,7 +43,7 @@ public class AbstractVarLenValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromViewerWithByteOrder() {
+    void testGetValueFromViewerWithByteOrder() {
         byte[] data = {1, 2, 3, 4, 5};
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         TestVarLenValueRetriever retriever = new TestVarLenValueRetriever(new TestConverter());
@@ -52,7 +52,7 @@ public class AbstractVarLenValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromReader() {
+    void testGetValueFromReader() {
         byte[] data = {1, 2, 3, 4, 5};
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
@@ -63,7 +63,7 @@ public class AbstractVarLenValueRetrieverTest {
     }
 
     @Test
-    public void testGetValueFromReaderWithByteOrder() {
+    void testGetValueFromReaderWithByteOrder() {
         byte[] data = {1, 2, 3, 4, 5};
         BinaryDataViewer viewer = new BinaryDataViewerImpl(data);
         BinaryDataReader reader = viewer.getReader();
@@ -73,7 +73,7 @@ public class AbstractVarLenValueRetrieverTest {
     }
 
     @Test
-    public void testGetConverter() {
+    void testGetConverter() {
         TestConverter converter = new TestConverter();
         TestVarLenValueRetriever retriever = new TestVarLenValueRetriever(converter);
         assertEquals(converter, retriever.getConverter());

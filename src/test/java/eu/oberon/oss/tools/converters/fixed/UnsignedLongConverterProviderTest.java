@@ -299,24 +299,28 @@ class UnsignedLongConverterProviderTest {
         @Test
         @DisplayName("value < 0 is rejected as out of unsigned range")
         void rejectsNegativeValue() {
+            BigInteger negativeOne = BigInteger.ONE.negate();
+            BigInteger negativeMax = MAX_VALUE.negate();
             assertAll(
                     () -> assertThrows(IllegalArgumentException.class,
-                            () -> toBytes.convert(BigInteger.ONE.negate(), ByteOrder.BIG_ENDIAN)),
+                            () -> toBytes.convert(negativeOne, ByteOrder.BIG_ENDIAN)),
                     () -> assertThrows(IllegalArgumentException.class,
-                            () -> toBytes.convert(MAX_VALUE.negate(), ByteOrder.LITTLE_ENDIAN))
+                            () -> toBytes.convert(negativeMax, ByteOrder.LITTLE_ENDIAN))
             );
         }
 
         @Test
         @DisplayName("value > 2^64 - 1 is rejected as out of unsigned range")
         void rejectsValueAboveMax() {
+            BigInteger aboveMax = MAX_VALUE.add(BigInteger.ONE);
+            BigInteger overflowShifted = OVERFLOW.shiftLeft(64);
             assertAll(
                     () -> assertThrows(IllegalArgumentException.class,
-                            () -> toBytes.convert(MAX_VALUE.add(BigInteger.ONE), ByteOrder.BIG_ENDIAN)),
+                            () -> toBytes.convert(aboveMax, ByteOrder.BIG_ENDIAN)),
                     () -> assertThrows(IllegalArgumentException.class,
                             () -> toBytes.convert(OVERFLOW, ByteOrder.LITTLE_ENDIAN)),
                     () -> assertThrows(IllegalArgumentException.class,
-                            () -> toBytes.convert(OVERFLOW.shiftLeft(64), ByteOrder.BIG_ENDIAN))
+                            () -> toBytes.convert(overflowShifted, ByteOrder.BIG_ENDIAN))
             );
         }
     }
